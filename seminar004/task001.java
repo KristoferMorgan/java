@@ -5,7 +5,6 @@
 
 package seminar004;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 

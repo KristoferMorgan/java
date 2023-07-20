@@ -7,13 +7,14 @@ package seminar005.home_work;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
 public class task {
 
     public static void main(String[] args) {
-        Map<String,String> NameAndTelephone = new HashMap<>();
+        Map<String,LinkedList<String>> NameAndTelephone = new HashMap<>();
          Scanner myScanner = new Scanner(System.in);
         System.out.println("Enter a number for the action:\n 1 = Record a contact\n2 = Read the phone book\n3 = delete contact\n 4 = exit\n:");
         try {
@@ -39,16 +40,17 @@ public class task {
             System.out.println("You didn't enter a number");
             myScanner.close();
         }
+        System.out.println(NameAndTelephone);
     }
 
-    static Map<String,String> record(Map<String,String> telephonBook) {
+    static Map<String,LinkedList<String>> record(Map<String,LinkedList<String>>telephonBook) {
         Scanner myScanner = new Scanner(System.in);
         int countRecord = 0;
         System.out.println("Enter the number of contacts you want to add to the phone book:");
         int contactCounterMax = myScanner.nextInt();
         while(countRecord < contactCounterMax){
             System.out.println("Enter Your Last Name");
-            String lastName = myScanner.nextLine();
+            String lastName = myScanner.next();
             System.out.println("Enter your name");
             String name = myScanner.next();
             System.out.println("Enter your Patronymic");
@@ -60,18 +62,21 @@ public class task {
             int countTelephonNumber = 1;
             while(countTelephonNumber <= countTelephonNumberMax){
                 System.out.printf("Enter the %s phone number\nThe phone number is entered from 8, not from +7",countTelephonNumber);
-                int tephonNumber = myScanner.nextInt();
+                String tephonNumber = myScanner.next();
                 try {
-                    telephonBook.put(resultName, new ArrayList<Integer>(){
-                            add(tephonNumber);
-                    });
+                    if (telephonBook.containsKey(resultName)) {
+                        telephonBook.get(name).add(tephonNumber);
+                        } else {
+                            telephonBook.put(name, new LinkedList<>());
+                            telephonBook.get(name).add(tephonNumber);
+                        }
                     
                 } catch (Exception e) {
                     System.out.println("Incorrect phone number input.It is worth entering only numbers starting from 8 instead of +7");
                 }
                 
             }
-            
+            myScanner.close();
         }
 
         
@@ -79,12 +84,13 @@ public class task {
         return(telephonBook);
     }
 
-    static void reader(Map<String,String> telephonBook) {
+    static void reader(Map<String,LinkedList<String>>telephonBook) {
     }
 
-    static Map<String,String> delete(Map<String,String> telephonBook) {
+    static Map<String,LinkedList<String>> delete(Map<String,LinkedList<String>>telephonBook) {
         return(telephonBook);
     }
+    
 
     
 }
